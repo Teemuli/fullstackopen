@@ -11,16 +11,16 @@ function App(){
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
 
-  const [personsFiltered, setPersonsFiltered] = useState(persons)
+  const [filter, setFilter] = useState("")
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <Filter persons={persons} setPersonsFiltered={setPersonsFiltered}/>
+      <Filter filter={filter} setFilter={setFilter}/>
       <h2>Add a new</h2>
       <PersonForm persons={persons} setPersons={setPersons}/>
       <h2>Numbers</h2>
-      <Persons persons={personsFiltered}/>
+      <Persons persons={persons} filter={filter}/>
     </div>
   )
 }

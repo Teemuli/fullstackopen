@@ -1,17 +1,13 @@
-import { useState } from 'react'
-
-function Filter({persons, personsFiltered, setPersonsFiltered}){
-    const [newFilter, setNewFilter] = useState('')
+function Filter({filter, setFilter}){
 
     const handleFilterChange = (event) => {
         const filter = event.target.value.toLowerCase()
-        setNewFilter(filter)
-        setPersonsFiltered(persons.filter(person => person.name.toLowerCase().includes(filter)))
+        setFilter(filter)
     }
 
     return (
         <div>
-        filter shown with: <input value={newFilter} onChange={handleFilterChange}/>
+        filter shown with: <input value={filter} onChange={handleFilterChange}/>
         </div>
     )
 }

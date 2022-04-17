@@ -4,10 +4,11 @@ function Person({name, number}){
     )
 }
 
-function Persons({persons}){
+function Persons({persons, filter}){
+    const personsFiltered = persons.filter(person => person.name.toLowerCase().includes(filter))
     return (
         <div>
-        {persons.map(person => 
+        {personsFiltered.map(person => 
         <Person key={person.name} name={person.name} number={person.number}/>
         )}
         </div>
