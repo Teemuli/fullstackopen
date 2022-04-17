@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import personService from '../services/personService'
 
-function PersonForm({persons, setPersons}){
+function PersonForm({persons, setPersons, setNotification}){
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
@@ -18,13 +19,25 @@ function PersonForm({persons, setPersons}){
             alert(`${newName} is already added to phonebook`)
             return
         }
-        setPersons(persons.concat({
-        name: newName,
-        number: newNumber,
-        id: persons.length + 1
-        }))
-        setNewName("")
-        setNewNumber("")
+        const lastPersonIndex = persons.length-1
+        const newId = lastPersonIndex < 0 ? 1 : persons[lastPersonIndex].id + 1
+        const personObject = {
+            name: newName,
+            number: newNumber,
+            id: newId
+        }
+        
+        personService
+            .create(personObject)
+            .then(result => {
+                setPersons(persons.concat(result))
+                setNotification("Added " + newName)
+                setNewName("")
+                setNewNumber("")
+                setTimeout(() => {
+                    setNotification(null)
+                }, 5000)
+            })
     }
 
     return (
